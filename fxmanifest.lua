@@ -1,29 +1,12 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Szilko121 (SzCore Team)'
-description 'Seamless backwards compatibility bridge exposing standard ESX events, exports, and callbacks to SzCore.'
-version '1.0.0'
+author 'SzCode / SzCore'
+description 'SzCore compatibility shim for common ESX APIs'
+version '1.4.0-rc1'
 
-lua54 'yes'
+files { 'imports.lua' }
 
-shared_scripts {
-    '@ox_lib/init.lua',
-    '@szcore/shared/init.lua',
-    'config.lua',
-    'shared/**/*.lua'
-}
-
-client_scripts {
-    'client/**/*.lua'
-}
-
-server_scripts {
-    '@oxmysql/lib/MySQL.lua',
-    'server/**/*.lua'
-}
-
-dependencies {
-    'szcore',
-    'oxmysql'
-}
+client_script 'client/main.lua'
+server_script 'server/main.lua'
+dependency 'szcore'
