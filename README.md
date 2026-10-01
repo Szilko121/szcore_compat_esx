@@ -1,73 +1,108 @@
-# szcore_compat_esx
+<div align="center">
 
-**SzCore Framework 1.4.0-rc1** · by **SzCode**
+<img src="https://capsule-render.vercel.app/api?type=waving&height=190&color=0:05080D,45:0066FF,100:00D4FF&text=SzCore+ESX+Adapter&fontSize=42&fontColor=FFFFFF&animation=fadeIn&fontAlignY=38&desc=SzCore+Framework+%E2%80%A2+Compatibility+Adapter&descAlignY=60&descSize=16" width="100%" alt="SzCore ESX Adapter" />
 
-Optional ESX compatibility adapter exposing selected es_extended-style APIs on SzCore.
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=21&duration=2500&pause=850&color=00D4FF&center=true&vCenter=true&width=720&height=52&lines=Compatibility+Adapter;Modular+%E2%80%A2+Server-Authoritative+%E2%80%A2+Developer+First" alt="SzCore ESX Adapter animated headline" />
 
-> This is an optional compatibility layer. It is not required by the native SzCore stack.
+<p><b>Optional compatibility layer that exposes selected ESX-style APIs and lifecycle events on top of the native SzCore runtime.</b></p>
 
-## Installation
+<p>
+  <img src="https://img.shields.io/badge/SzCore-v1.4.0--rc1-8B5CF6?style=for-the-badge" alt="SzCore version">
+  <img src="https://img.shields.io/badge/Type-Compatibility+Adapter-00D4FF?style=for-the-badge" alt="Compatibility Adapter">
+  <img src="https://img.shields.io/badge/FiveM-Resource-F40552?style=for-the-badge&logo=fivem&logoColor=white" alt="FiveM">
+  <img src="https://img.shields.io/badge/Lua-5.4-2C2D72?style=for-the-badge&logo=lua&logoColor=white" alt="Lua">
+</p>
+
+<p>
+  <a href="https://github.com/Szilko121/szcore_compat_esx/stargazers"><img src="https://img.shields.io/github/stars/Szilko121/szcore_compat_esx?style=flat-square&logo=github&color=00D4FF" alt="Stars"></a>
+  <a href="https://github.com/Szilko121/szcore_compat_esx/issues"><img src="https://img.shields.io/github/issues/Szilko121/szcore_compat_esx?style=flat-square&logo=github&color=EF4444" alt="Issues"></a>
+  <img src="https://img.shields.io/github/last-commit/Szilko121/szcore_compat_esx?style=flat-square&logo=github&color=22C55E" alt="Last commit">
+</p>
+
+<p>
+  <a href="https://github.com/Szilko121/SzCore-Framework"><b>Framework</b></a> •
+  <a href="https://github.com/Szilko121/SzCore-Framework/tree/main/docs"><b>Documentation</b></a> •
+  <a href="https://github.com/Szilko121/SzCore-Recipe"><b>txAdmin Recipe</b></a> •
+  <a href="https://github.com/Szilko121/szcore_compat_esx/issues"><b>Report an Issue</b></a>
+</p>
+
+</div>
+
+---
+
+## 🚀 Overview
+
+Optional compatibility layer that exposes selected ESX-style APIs and lifecycle events on top of the native SzCore runtime.
+
+> Compatibility is intentionally not advertised as 100%. SzCore remains independent from ESX.
+
+## ✨ Highlights
+
+| | Capability |
+|---:|---|
+| ⚡ | **getSharedObject compatibility** |
+| 🧩 | **xPlayer-style wrappers** |
+| 🛡️ | **Money/account forwarding** |
+| 💾 | **Inventory forwarding when SzCore Inventory is running** |
+| 🎯 | **Job and metadata translation** |
+| 🔌 | **Common ESX lifecycle events** |
+
+## 📦 Installation
+
+### Requirements
+
+`szcore`
+
+### Clone
 
 ```bash
-git clone https://github.com/Szilko121/szcore_compat_esx.git resources/[szcore]/szcore_compat_esx
+git clone https://github.com/Szilko121/szcore_compat_esx.git "resources/[compat]/es_extended"
 ```
 
-Then start the resource after its dependencies:
+### Start
 
 ```cfg
-ensure szcore_compat_esx
+ensure es_extended
 ```
 
-**Declared dependencies:** `szcore`
+For a full framework deployment, use the dedicated **[SzCore-Recipe](https://github.com/Szilko121/SzCore-Recipe)** instead of installing every module manually.
 
-For a complete server installation, use [`SzCore-Recipe`](https://github.com/Szilko121/SzCore-Recipe).
+## 🔌 API Highlights
 
-## What this resource provides
+`getSharedObject`
 
-Optional ESX compatibility adapter exposing selected es_extended-style APIs on SzCore.
+Example:
 
-The resource is designed to use SzCore's server-authoritative APIs and modular startup model. Do not rename the resource directory: other resources may reference it by its canonical name.
+```lua
+-- Cross-resource integration should use documented exports.
+local resourceState = GetResourceState('es_extended')
+if resourceState == 'started' then
+    -- Use the module's public API here.
+end
+```
 
-## Public exports detected
+For framework-wide player, callback, hook, permission and persistence conventions, see the **[SzCore developer documentation](https://github.com/Szilko121/SzCore-Framework/tree/main/docs)**.
 
-- `getSharedObject`
+## 🛡️ Design & Safety
 
-See [`docs/API.md`](docs/API.md) for the generated reference and the central [`SzCore-Framework`](https://github.com/Szilko121/SzCore-Framework) documentation for framework-wide API contracts.
+- Sensitive persistent mutations belong on the server.
+- Client input is treated as untrusted.
+- Cross-resource APIs are explicit instead of relying on hidden globals.
+- Tight permanent loops are avoided unless a FiveM native requires per-frame application.
+- Performance claims should be verified with `resmon`, the FXServer profiler and repeatable benchmarks.
 
-## Network events detected
+## 🧩 SzCore Ecosystem
 
-- `esx:showNotification`
+This resource is part of the modular **SzCore Framework**. Modules are maintained in separate repositories so servers can install, update or replace features independently.
 
-Network events are implementation surfaces, not automatically trusted public APIs. Server handlers validate state/permissions where applicable. Prefer documented exports for third-party integrations.
+<div align="center">
 
-## Commands
+[![Framework](https://img.shields.io/badge/SzCore-Framework-00D4FF?style=for-the-badge&logo=github)](https://github.com/Szilko121/SzCore-Framework)
+[![Recipe](https://img.shields.io/badge/txAdmin-Recipe-2563EB?style=for-the-badge&logo=github)](https://github.com/Szilko121/SzCore-Recipe)
 
-- No direct `RegisterCommand` entry detected.
+<br><br>
+<sub>Built by <b>SzCode</b> for the FiveM community.</sub>
 
-## Key mappings
+<img src="https://capsule-render.vercel.app/api?type=waving&height=90&section=footer&color=0:00D4FF,55:0066FF,100:05080D" width="100%" alt="SzCore footer" />
 
-- No direct key mapping detected.
-
-## Database
-
-- This resource does not directly reference an SzCore SQL table, or uses core storage APIs instead.
-
-Fresh-install schema and migrations are owned by the `szcore` core resource unless this repository contains its own SQL file.
-
-## Configuration
-
-Read [`docs/CONFIGURATION.md`](docs/CONFIGURATION.md). Configuration is intentionally resource-local so optional modules can be restarted and maintained independently.
-
-## Development
-
-- Keep server-authoritative mutations on the server.
-- Validate source, distance, permission and entity ownership for sensitive network actions.
-- Prefer SzCore callbacks/exports over polling.
-- Avoid permanent tight loops unless a FiveM native explicitly requires per-frame application.
-- Keep backwards compatibility changes explicit and documented.
-
-## Version
-
-Current release candidate: **1.4.0-rc1**.
-
-This is an RC build. Validate it on a staging FXServer/OneSync/MariaDB environment before production rollout.
+</div>
